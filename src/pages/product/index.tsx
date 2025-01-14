@@ -1,17 +1,12 @@
+import { fetcher } from "@/utils/swr/fetcher";
+import ProductView from "@/views/product";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-
-type productType = {
-  id: number;
-  name: string;
-  price: number;
-  size: string;
-};
+import useSWR from "swr";
 
 const Product = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [products, setProducts] = useState([]);
-  // const [products, setProducts] = useState<Data["data"]>([]);
+  // const [products, setProducts] = useState([]);
   const { push } = useRouter();
 
   useEffect(() => {
@@ -20,20 +15,19 @@ const Product = () => {
     }
   }, []);
 
-  useEffect(() => {
-    fetch("/api/product")
-      .then((res) => res.json())
-      .then((response) => {
-        setProducts(response.data);
-      });
-  }, []);
+  const { data, error, isLoading } = useSWR("/api/product", fetcher);
+
+  // useEffect(() => {
+  //   fetch("/api/product")
+  //     .then((res) => res.json())
+  //     .then((response) => {
+  //       setProducts(response.data);
+  //     });
+  // }, []);
 
   return (
     <div>
-      <h1>Product Page</h1>
-      {products.map((product: productType) => (
-        <div key={product.id}>{product.name}</div>
-      ))}
+      <ProductView products={isLoading ? [] : data.data} />
     </div>
   );
 };

@@ -5,10 +5,14 @@ import Image from "next/image";
 const Page404 = () => {
   return (
     <div className={styles.error}>
+      <Image
+        src="/not_Found.png"
+        alt=""
+        className={styles.error_image}
+        width={600}
+        height={600}
+      />
       <div>Halaman Tidak Ditemukan</div>
-      <div className="">
-        <img src="/not_Found.png" alt="" className={styles.error_image} />
-      </div>
     </div>
   );
 };

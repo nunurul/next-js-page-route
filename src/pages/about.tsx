@@ -9,7 +9,9 @@ const about = () => {
       <Head>
         <title>About</title>
       </Head>
-      <h1>About Page</h1>
+      <h1 className="title" data-testid="title">
+        About Page
+      </h1>
       <Link href={"/about"}>About</Link>
     </div>
   );
